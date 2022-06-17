@@ -32,9 +32,11 @@ package com.yourcompany.gobuy.view
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -63,11 +65,9 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
 
         binding.rvGroceryList.adapter = GroceryAdapter(viewModel.groceryListItems, this, ::editGroceryItem, ::deleteGroceryItem)
 
-        binding.addItemButton.setOnClickListener {
-            addGroceryItem()
-        }
-
         binding.total = viewModel.getTotal()
+
+        binding.listeners = Listeners(supportFragmentManager)
     }
 
     private fun addGroceryItem() {
@@ -102,5 +102,13 @@ class GroceryListActivity : AppCompatActivity(), NewItemDialogFragment.NewItemDi
 
     override fun onDialogNegativeClick(dialog: DialogFragment) {
         Snackbar.make(binding.addItemButton, "Nothing Added", Snackbar.LENGTH_LONG).setAction("Action", null).show()
+    }
+
+    class Listeners(private val supportFragmentManager: FragmentManager) {
+
+        fun onAddGroceryItemClick(view: View) {
+            val newFragment = NewItemDialogFragment.newInstance(R.string.add_new_item_dialog_title, null)
+            newFragment.show(supportFragmentManager, "newItem")
+        }
     }
 }
