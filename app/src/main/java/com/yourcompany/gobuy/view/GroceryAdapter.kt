@@ -50,8 +50,9 @@ class GroceryAdapter(val items: ArrayList<GroceryItem>, val context: Context,
         val binding: GroceryListItemBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.grocery_list_item,
                 parent, false)
-        return ViewHolder(binding)
+        binding.adapter = this
 
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -66,5 +67,6 @@ class GroceryAdapter(val items: ArrayList<GroceryItem>, val context: Context,
 class ViewHolder(val binding: GroceryListItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: GroceryItem) {
         binding.item = item
+        binding.position = adapterPosition
     }
 }
