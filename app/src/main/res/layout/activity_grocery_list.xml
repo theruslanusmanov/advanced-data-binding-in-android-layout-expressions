@@ -35,8 +35,8 @@
     <data>
 
         <variable
-            name="totalAmount"
-            type="String" />
+            name="total"
+            type="Double" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +84,7 @@
                 android:id="@+id/total_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@{totalAmount}"
+                android:text="@{@string/money_amount(total)}"
                 android:textColor="@android:color/black"
                 android:textSize="25sp" />
 
